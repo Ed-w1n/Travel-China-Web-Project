@@ -4,6 +4,7 @@ This is a website project for GNG 5124 course of University of Ottawa. At the be
 
 ## Tools
 Java, HTML, JQuery, CSS, AJAX, Bootstarp, MySql, Maven
+
 For front-end, native HTML and JQuery are used. For back-end, there are three layers: web layer where servlets are applied, service layer and dao layer where JDBC and Druid datasource are applied.
 
 ## Main Features
