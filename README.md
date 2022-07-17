@@ -31,7 +31,7 @@ Druid：database connection pool
 
 JdbcTemplate：tool for jdbc
 
-### Create tables
+### Table Structure
 ![image](https://user-images.githubusercontent.com/81521033/179344168-cb800c93-1aa9-4d7b-a331-9ebf372afea5.png)
 
 ## Main Features
