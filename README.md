@@ -241,9 +241,72 @@ Servlet Layer
     }
 This servlet has one goal: to get the pagebean containing the required data. Here, set a default value for each page of display data and the current page number to make the first access successfully.
 
-### Collection
-
 ### Search
+![image](https://user-images.githubusercontent.com/81521033/180128283-8b4f2ded-c7a6-4af0-8df6-86cd7c5b2931.png)
+![image](https://user-images.githubusercontent.com/81521033/180128378-c5cf0c17-0b68-420d-8180-05f39c2fd6a3.png)
+
+Dao Layer
+
+    public List<Route> getRouteList(int cid, int start, int pageSize, String rname) {
+        StringBuilder sql=new StringBuilder("select * from tab_route where 1=1") ;
+        List p=new ArrayList<>();
+        if(cid!=0){
+            sql.append(" and cid = ? ");
+            p.add(cid);
+        }
+        if(rname!=null&& rname.length()>0 && !"null".equals(rname)){
+            sql.append(" and rname like ?");
+            p.add("%"+rname+"%");
+        }
+        sql.append(" limit ? , ?");
+        p.add(start);
+        p.add(pageSize);
+        List<Route> routes=jdbcTemplate.query(sql.toString(),new            BeanPropertyRowMapper<Route>(Route.class),p.toArray());
+        return routes;
+    }
+
+    public int getTotalCount(int cid, String rname) {
+       StringBuilder sql=new StringBuilder("select count(*) from tab_route where 1 = 1 ");
+        List p=new ArrayList<>();
+        if(cid!=0){
+            sql.append(" and cid = ? ");
+            p.add(cid);
+        }
+        if(rname!=null && rname.length()>0 &&!"null".equals(rname)){
+            sql.append(" and rname like ?");
+            p.add("%"+rname+"%");
+        }
+        int count = jdbcTemplate.queryForObject(sql.toString(), Integer.class,p.toArray());
+        return count;
+    }
+
+Here we modify the previous method. It can be seen that we add an rname to the parameter and use CID and rname to conduct joint query. Here we use two skills.
+
+1. In this fuzzy query, we can write select count (*) from tab first_ Route where 1 = 1 to ensure that the entire SQL statement is correct. If cid is not equal to 0, add an `and cid=?`. It's the same for rname. The reason for this is that both cid and rname can be 0.
+
+2. We use a list to store conditions, and then in jdbctemplate Queryforobject() converts it into an array, which brings great flexibility to our program
+
+Service Layer
+There is less change in service layer. We want to have PageBean, so some parameters are changed.
+
+Servlet
+
+One thing need to be noted is when we get the rname value, the actual uploaded code can be jumbled because Tomcat does not have the ability to automatically deal with garbled code until tomcat8, so we have to deal with garbled code manually.
+
+rname = new String(rname.getBytes(“iso-8859-1”), “utf-8”);
+
+### Route Detail
+![image](https://user-images.githubusercontent.com/81521033/180128230-8423dffc-d6e0-4a23-9bb5-15e918992ba1.png)
+![image](https://user-images.githubusercontent.com/81521033/180130134-ef4aec19-8343-443f-8b03-673d71982d4d.png)
+
+### Collection
+check whether user added current route to collecion
+![image](https://user-images.githubusercontent.com/81521033/180131145-0cbe6137-5a22-48f1-a6aa-378049a9f2a3.png)
+
+hit the add to collections button
+![image](https://user-images.githubusercontent.com/81521033/180131648-737e6965-1057-43c0-9649-833221463834.png)
+
+
 
 
 
