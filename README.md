@@ -39,7 +39,7 @@ JdbcTemplate：tool for jdbc
 ![image](https://user-images.githubusercontent.com/81521033/179386143-1e44d086-a518-45dc-94a1-5b6df81292ff.png)
 
 register.html
-![image](https://user-images.githubusercontent.com/81521033/179386199-3f321260-554a-48c5-b995-33dce17de427.png)
+![image](https://user-images.githubusercontent.com/81521033/180133106-83ab77ba-c729-4e87-b12f-974259afa32a.png)
 
 Notice that native HTML is used throughout the project, so we need to use AJAX for posting data. If we use form to post data, the page must be refreshed every time it posts. 
 
@@ -57,9 +57,9 @@ Notice that if you want to use SMTP to send mail, some Email providers like Tenc
 
 ### Login
 login.html
-![image](https://user-images.githubusercontent.com/81521033/179447888-7b13bdfa-8cf1-42ed-885f-01da5fc2764b.png)
+![image](https://user-images.githubusercontent.com/81521033/180133263-fb591ef9-d9ec-437b-aa08-20bbf52c992e.png)
 
-![image](https://user-images.githubusercontent.com/81521033/179448051-4f8f1cc2-9251-4da6-93b1-3ec7e178798f.png)
+![image](https://user-images.githubusercontent.com/81521033/180133525-009c9797-43ff-4e5a-87c9-c9660f265803.png)
 After login, user's name will show on the top of the page as the red box shows. Firstly, user object will be sent to session and the page get this user object asynchronously when the main page loads. 
 
 ![image](https://user-images.githubusercontent.com/81521033/179449138-e89e23cf-ebc4-47ab-a5b4-982885c121ec.png)
@@ -133,6 +133,8 @@ realized. Then, we only need one servlet to extend HttpServlet for one module.
 Override service() in BaseServlet. First get the name of method in uri, then use reflection to get the method and execute it. That is to say, we transform the original servlet into a method in the servlet of each independent module. The servlet of such a module originally corresponds to the creation of 10 servlets for different functions. Now, we only need to create 10 methods in the servlet of this module. Some code commonly used in servlets can also be extracted into baseservlet as public methods such as the writevalues method.
 
 ### Display in pages
+![image](https://user-images.githubusercontent.com/81521033/180134329-a4725d6e-94da-4d8e-9530-eed4e250d764.png)
+
 After clicking the bottom navigation page bar, it will jump to the corresponding page to display tourism route. The main code implementation is divided into two parts: the code function implementation of the bottom index part and the function implementation of the data display part.
 
 We need to pass to the servlet the current page number, the tourism route index cid, and the number of routes displayed on each page. After processing in the servlet, only a pagebean object containing the total number of records, the total number of pages, the current page number, and the collection containing real data need to send back. The reason for sending cid is that cid is the foreign key of tab_route:
@@ -242,8 +244,9 @@ Servlet Layer
 This servlet has one goal: to get the pagebean containing the required data. Here, set a default value for each page of display data and the current page number to make the first access successfully.
 
 ### Search
-![image](https://user-images.githubusercontent.com/81521033/180128283-8b4f2ded-c7a6-4af0-8df6-86cd7c5b2931.png)
-![image](https://user-images.githubusercontent.com/81521033/180128378-c5cf0c17-0b68-420d-8180-05f39c2fd6a3.png)
+![image](https://user-images.githubusercontent.com/81521033/180133695-1c311b7d-2c34-4236-9843-9b6e059b6720.png)
+![image](https://user-images.githubusercontent.com/81521033/180133821-e2bbc5f8-e007-49c8-9c51-ac66184935d4.png)
+
 
 Dao Layer
 
@@ -296,7 +299,10 @@ One thing need to be noted is when we get the rname value, the actual uploaded c
 rname = new String(rname.getBytes(“iso-8859-1”), “utf-8”);
 
 ### Route Detail
+![image](https://user-images.githubusercontent.com/81521033/180134190-a855cadb-d2e3-4638-97e1-a887b1878375.png)
+
 ![image](https://user-images.githubusercontent.com/81521033/180128230-8423dffc-d6e0-4a23-9bb5-15e918992ba1.png)
+
 ![image](https://user-images.githubusercontent.com/81521033/180130134-ef4aec19-8343-443f-8b03-673d71982d4d.png)
 
 ### Collection
